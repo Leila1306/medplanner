@@ -486,9 +486,9 @@ export default function MedPlanner() {
   const tx2 = dark ? "#aaa" : "#888";
   const brd = dark ? "#333" : "#eee";
 
-  const crd = { background: bg2, borderRadius: 14, padding: "16px 20px", boxShadow: dark ? "none" : "0 2px 8px rgba(0,0,0,0.06)", marginBottom: 12, border: dark ? "1px solid #333" : "none" };
-  const btnP = { padding: "10px 20px", borderRadius: 10, border: "none", background: dark ? "#6366f1" : "#1a1a2e", color: "white", fontWeight: 700, fontSize: 13, cursor: "pointer", fontFamily: "inherit" };
-  const btnS = { padding: "10px 20px", borderRadius: 10, border: `1.5px solid ${brd}`, background: bg2, color: tx, fontWeight: 600, fontSize: 13, cursor: "pointer", fontFamily: "inherit" };
+  const crd = { background: bg2, borderRadius: 16, padding: "16px 20px", boxShadow: dark ? "none" : "0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)", marginBottom: 12, border: dark ? "1px solid #333" : "none" };
+  const btnP = { padding: "12px 20px", borderRadius: 12, border: "none", background: dark ? "#6366f1" : "#1a1a2e", color: "white", fontWeight: 700, fontSize: 14, cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.15s" };
+  const btnS = { padding: "12px 20px", borderRadius: 12, border: `1.5px solid ${brd}`, background: bg2, color: tx, fontWeight: 600, fontSize: 14, cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.15s" };
   const inp = { padding: "10px 14px", borderRadius: 10, border: `1.5px solid ${brd}`, fontSize: 14, width: "100%", boxSizing: "border-box", outline: "none", fontFamily: "inherit", background: bg2, color: tx };
 
   // Handlers
@@ -662,7 +662,7 @@ export default function MedPlanner() {
   const weekDates = weekStart ? getWeekDates(weekStart) : null;
 
   return (
-    <div style={{ fontFamily: "'Segoe UI',sans-serif", minHeight: "100vh", background: dark ? "#0a0a1a" : "linear-gradient(135deg,#f5f7fa,#e8ecf1)", padding: "20px 12px", maxWidth: 640, margin: "0 auto", color: tx }}>
+    <div style={{ fontFamily: "-apple-system, 'Segoe UI', sans-serif", minHeight: "100vh", background: dark ? "#0a0a1a" : "#f0f2f5", padding: "24px 16px", maxWidth: 480, margin: "0 auto", color: tx }}>
 
       {toast && <div style={{ position: "fixed", top: 16, left: "50%", transform: "translateX(-50%)", background: "#1a1a2e", color: "white", padding: "10px 24px", borderRadius: 12, fontSize: 13, fontWeight: 600, zIndex: 999, boxShadow: "0 4px 20px rgba(0,0,0,0.3)" }}>{toast}</div>}
 
@@ -673,8 +673,8 @@ export default function MedPlanner() {
       </div>}
 
       {/* Header */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-        <h1 style={{ fontSize: 20, fontWeight: 700, color: dark ? "#fff" : "#1a1a2e", margin: 0 }}>🩺 MedPlanner</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+        <h1 style={{ fontSize: 24, fontWeight: 800, color: dark ? "#fff" : "#1a1a2e", margin: 0, letterSpacing: "-0.5px" }}>🩺 MedPlanner</h1>
         <div style={{ display: "flex", gap: 6 }}>
           <button onClick={() => setDark(!dark)} style={{ background: "none", border: "none", fontSize: 20, cursor: "pointer" }}>{dark ? "☀️" : "🌙"}</button>
           <button onClick={() => setShowSettings(!showSettings)} style={{ background: "none", border: "none", fontSize: 20, cursor: "pointer" }}>⚙️</button>
@@ -703,11 +703,13 @@ export default function MedPlanner() {
       </div>}
 
       {/* Tabs */}
-      <div style={{ display: "flex", gap: 3, marginBottom: 14, background: bg2, borderRadius: 14, padding: 3, boxShadow: dark ? "none" : "0 1px 4px rgba(0,0,0,0.06)", border: dark ? `1px solid #333` : "none" }}>
-        {[["dash", "📊"], ["plan", "📅"], ["cours", "📚"], ["pomo", "⏱️"], ["events", "📌"]].map(([k, ic]) => (
-          <button key={k} onClick={() => { setTab(k); setSelDate(null); setViewMode("month"); }} style={{ flex: 1, padding: "9px 4px", border: "none", borderRadius: 10, background: tab === k ? (dark ? "#6366f1" : "#1a1a2e") : "transparent", color: tab === k ? "white" : tx2, fontWeight: tab === k ? 700 : 500, fontSize: 14, cursor: "pointer", position: "relative" }}>
-            {ic}
-            {k === "cours" && pending.length > 0 && <span style={{ position: "absolute", top: 2, right: 2, width: 14, height: 14, borderRadius: 7, background: "#dc2626", color: "white", fontSize: 8, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>{pending.length}</span>}
+      <div style={{ display: "flex", gap: 3, marginBottom: 14, background: bg2, borderRadius: 14, padding: 4, boxShadow: dark ? "none" : "0 2px 8px rgba(0,0,0,0.08)", border: dark ? `1px solid #333` : "none" }}>
+        {[["dash", "📊", "Stats"], ["plan", "📅", "Planning"], ["cours", "📚", "Cours"], ["pomo", "⏱️", "Timer"], ["events", "📌", "RDV"]].map(([k, ic, lb]) => (
+          <button key={k} onClick={() => { setTab(k); setSelDate(null); setViewMode("month"); }} style={{ flex: 1, padding: "10px 4px 8px", border: "none", borderRadius: 10, background: tab === k ? (dark ? "#6366f1" : "#1a1a2e") : "transparent", color: tab === k ? "white" : tx2, fontWeight: tab === k ? 700 : 500, fontSize: 11, cursor: "pointer", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+            <span style={{ fontSize: 16 }}>{ic}</span>
+            <span>{lb}</span>
+            {k === "cours" && pending.length > 0 && <span style={{ position: "absolute", top: 2, right: 6, width: 16, height: 16, borderRadius: 8, background: "#dc2626", color: "white", fontSize: 9, fontWeight: 800, display: "flex", alignItems: "center", justifyContent: "center" }}>{pending.length}</span>}
+          </button>
           </button>
         ))}
       </div>
