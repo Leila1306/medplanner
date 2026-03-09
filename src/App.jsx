@@ -486,7 +486,7 @@ export default function MedPlanner() {
   const tx2 = dark ? "#aaa" : "#888";
   const brd = dark ? "#333" : "#eee";
 
-  const crd = { background: bg2, borderRadius: 16, padding: "16px 20px", boxShadow: dark ? "none" : "0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)", marginBottom: 12, border: dark ? "1px solid #333" : "none" };
+  const crd = { background: bg2, borderRadius: 16, padding: "20px 24px", boxShadow: dark ? "none" : "0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04)", marginBottom: 12, border: dark ? "1px solid #333" : "none" };
   const btnP = { padding: "12px 20px", borderRadius: 12, border: "none", background: dark ? "#6366f1" : "#1a1a2e", color: "white", fontWeight: 700, fontSize: 14, cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.15s" };
   const btnS = { padding: "12px 20px", borderRadius: 12, border: `1.5px solid ${brd}`, background: bg2, color: tx, fontWeight: 600, fontSize: 14, cursor: "pointer", fontFamily: "inherit", transition: "opacity 0.15s" };
   const inp = { padding: "10px 14px", borderRadius: 10, border: `1.5px solid ${brd}`, fontSize: 14, width: "100%", boxSizing: "border-box", outline: "none", fontFamily: "inherit", background: bg2, color: tx };
@@ -662,7 +662,7 @@ export default function MedPlanner() {
   const weekDates = weekStart ? getWeekDates(weekStart) : null;
 
   return (
-    <div style={{ fontFamily: "-apple-system, 'Segoe UI', sans-serif", minHeight: "100vh", background: dark ? "#0a0a1a" : "#f0f2f5", padding: "24px 16px", maxWidth: 480, margin: "0 auto", color: tx }}>
+    <div style={{ fontFamily: "-apple-system, 'Segoe UI', sans-serif", minHeight: "100vh", background: dark ? "#0a0a1a" : "#f0f2f5", padding: "24px 16px", maxWidth: 860, margin: "0 auto", color: tx }}>
 
       {toast && <div style={{ position: "fixed", top: 16, left: "50%", transform: "translateX(-50%)", background: "#1a1a2e", color: "white", padding: "10px 24px", borderRadius: 12, fontSize: 13, fontWeight: 600, zIndex: 999, boxShadow: "0 4px 20px rgba(0,0,0,0.3)" }}>{toast}</div>}
 
@@ -775,7 +775,7 @@ export default function MedPlanner() {
           );
         })()}
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 12 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gap: 10, marginBottom: 12 }}>
           {[[done, "Terminés", "#16a34a"], [active, "Restants", "#d97706"], [Math.round(totalRevHours), "Heures restantes", "#6366f1"], [`${weeklyTarget}/sem`, "Objectif hebdo", "#14b8a6"]].map(([v, l, c]) => (
             <div key={l} style={{ ...crd, textAlign: "center", padding: "14px 10px" }}>
               <div style={{ fontSize: 26, fontWeight: 800, color: c }}>{v}</div>
@@ -919,15 +919,15 @@ export default function MedPlanner() {
             <span style={{ fontWeight: 700, fontSize: 15 }}>{MN[viewMonth.getMonth()]} {viewMonth.getFullYear()}</span>
             <button onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1))} style={{ ...btnS, padding: "8px 12px" }}>→</button>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 2, marginBottom: 3 }}>{["L", "M", "M", "J", "V", "S", "D"].map((d, i) => <div key={i} style={{ textAlign: "center", fontSize: 11, fontWeight: 700, color: tx2, padding: 3 }}>{d}</div>)}</div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 3 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 2, marginBottom: 3 }}>{["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"].map((d, i) => <div key={i} style={{ textAlign: "center", fontSize: 11, fontWeight: 700, color: tx2, padding: 3 }}>{d}</div>)}</div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(7,1fr)", gap: 6 }}>
             {getMonthGrid(viewMonth.getFullYear(), viewMonth.getMonth()).map((cell, i) => {
               const k = dk(cell.date), slot = sMap[k], nC = slot?.assigned?.length || 0, de2 = events.filter(e => e.date === k);
               const isT = k === dk(new Date()), isE = k === dk(EXAM), isS = cell.date.getDay() === 0;
               const diffs = slot?.assigned?.map(c => c.difficulty || "medium") || [];
               const doneHere = courses.filter(c => c.completedDate === k).length;
               return (
-                <button key={i} onClick={() => { if (cell.ok) setSelDate(cell.date); }} style={{ background: isT ? (dark ? "#6366f1" : "#1a1a2e") : isE ? "#dc2626" : isS ? (dark ? "#1a1a2e" : "#fffde7") : bg2, border: `1px solid ${brd}`, borderRadius: 8, padding: "5px 2px", minHeight: 56, cursor: cell.ok ? "pointer" : "default", opacity: cell.ok ? 1 : 0.3, display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
+                <button key={i} onClick={() => { if (cell.ok) setSelDate(cell.date); }} style={{ background: isT ? (dark ? "#6366f1" : "#1a1a2e") : isE ? "#dc2626" : isS ? (dark ? "#1a1a2e" : "#fffde7") : bg2, border: `1px solid ${brd}`, borderRadius: 8, padding: "5px 2px", minHeight: 80, cursor: cell.ok ? "pointer" : "default", opacity: cell.ok ? 1 : 0.3, display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
                   <span style={{ fontSize: 12, fontWeight: isT ? 800 : 600, color: (isT || isE) ? "white" : tx }}>{cell.date.getDate()}</span>
                   {nC > 0 && <div style={{ display: "flex", gap: 1, flexWrap: "wrap", justifyContent: "center" }}>{diffs.slice(0, 4).map((d, j) => <div key={j} style={{ width: 5, height: 5, borderRadius: 3, background: DIFF[d]?.color }} />)}{nC > 4 && <span style={{ fontSize: 7, color: tx2 }}>+{nC - 4}</span>}</div>}
                   {doneHere > 0 && cell.ok && <span style={{ fontSize: 8, fontWeight: 800, color: "#16a34a" }}>✓{doneHere}</span>}
