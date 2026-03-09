@@ -379,6 +379,9 @@ export default function MedPlanner() {
   const [toast, setToast] = useState(null);
   const [rebalancing, setRebalancing] = useState(false);
 
+  // API key
+  const [apiKey, setApiKey] = useState(() => localStorage.getItem("mp_apikey") || "");
+
   // Queue
   const [queue, setQueue] = useState([]);
   const [pending, setPending] = useState([]);
@@ -401,8 +404,6 @@ export default function MedPlanner() {
   const [showSettings, setShowSettings] = useState(false);
 
   const fileRef = useRef(null);
-
-  const [apiKey, setApiKey] = useState(() => localStorage.getItem("mp_apikey") || "");
 
   // Load/save
   useEffect(() => {
